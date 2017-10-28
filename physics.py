@@ -13,14 +13,17 @@ universe.addFunctions(['move', 'bounce', 'collide', 'drag', 'accelerate'])
 universe.acceleration = (pi, 0.01)
 universe.mass_of_air = 0.02
 
-universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=True)
+universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=True, x=175, y=100)
 universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=False)
+universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=False)
+universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=True, x=225, y=100)
 universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=False)
 universe.addParticles(mass=100, size=16, speed=2, elasticity=1, colour=(20,40,200), fixed=False)
 
-universe.addSpring(0,1, length=100, strength=1)
-universe.addSpring(1,2, length=100, strength=1)
-universe.addSpring(2,0, length=80, strength=1)
+universe.addSpring(0,1, length=50, strength=1)
+universe.addSpring(1,2, length=50, strength=1)
+universe.addSpring(3,4, length=50, strength=1)
+universe.addSpring(4,5, length=50, strength=1)
 
 selected_particle = None
 paused = False
