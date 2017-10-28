@@ -48,7 +48,7 @@ def collide(p1, p2):
 class Particle:
     """ A circular object with a velocity, size and mass """
     
-    def __init__(self, (x, y), size, mass=1):
+    def __init__(self, (x, y), size, mass=1, fixed=False):
         self.x = x
         self.y = y
         self.size = size
@@ -59,12 +59,13 @@ class Particle:
         self.mass = mass
         self.drag = 1
         self.elasticity = 0.9
+        self.fixed = fixed
 
     def move(self):
         """ Update position based on speed, angle """
-
-        self.x += math.sin(self.angle) * self.speed
-        self.y -= math.cos(self.angle) * self.speed
+        if not self.fixed:
+            self.x += math.sin(self.angle) * self.speed
+            self.y -= math.cos(self.angle) * self.speed
 
     def experienceDrag(self):
         self.speed *= self.drag
@@ -83,18 +84,18 @@ class Particle:
         
     def attract(self, other):
         """" Change velocity based on gravatational attraction between two particle"""
+        pass
+        # dx = (self.x - other.x)
+        # dy = (self.y - other.y)
+        # dist  = math.hypot(dx, dy)
         
-        dx = (self.x - other.x)
-        dy = (self.y - other.y)
-        dist  = math.hypot(dx, dy)
-        
-        if dist < self.size + other.size:
-            return True
+        # if dist < self.size + other.size:
+        #     return True
 
-        theta = math.atan2(dy, dx)
-        force = 0.1 * self.mass * other.mass / dist**2
-        self.accelerate((theta - 0.5 * math.pi, force/self.mass))
-        other.accelerate((theta + 0.5 * math.pi, force/other.mass))
+        # theta = math.atan2(dy, dx)
+        # force = 0.1 * self.mass * other.mass / dist**2
+        # self.accelerate((theta - 0.5 * math.pi, force/self.mass))
+        # other.accelerate((theta + 0.5 * math.pi, force/other.mass))
 
 class Spring:
     def __init__(self, p1, p2, length=50, strength=0.5):
@@ -156,8 +157,8 @@ class Environment:
             mass = kargs.get('mass', random.randint(100, 10000))
             x = kargs.get('x', random.uniform(size, self.width - size))
             y = kargs.get('y', random.uniform(size, self.height - size))
-
-            particle = Particle((x, y), size, mass)
+            fixed = kargs.get('fixed', False)
+            particle = Particle((x, y), size, mass, fixed)
             particle.speed = kargs.get('speed', random.random())
             particle.angle = kargs.get('angle', random.uniform(0, math.pi*2))
             particle.colour = kargs.get('colour', (0, 0, 255))
