@@ -32,7 +32,6 @@ WHITE = (255,255,255)
 RED = (255,0,0)
 myfont=pygame.font.SysFont("Britannic Bold", 40)
 counter  = 0
-start_ticks = pygame.time.get_ticks()
 
 class Background(pygame.sprite.Sprite):
 	def __init__(self, image_file, location):
@@ -108,7 +107,8 @@ def outro():
 			pygame.display.flip()
 
 def main_game():
-	
+
+	start_ticks = pygame.time.get_ticks()
 	left_elbow_x = left_should_x - 20
 	left_elbow_y = left_should_y + arm_length
 	print("here")
@@ -190,6 +190,7 @@ def main_game():
 
 	    pygame.display.update()
 
-intro()
-main_game()
-outro()
+while True:
+	intro()
+	main_game()
+	outro()
