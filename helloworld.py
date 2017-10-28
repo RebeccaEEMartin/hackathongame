@@ -19,8 +19,10 @@ left_elbow_x = left_should_x - 20
 left_elbow_y = left_should_y + arm_length
 left_hand_x = 50
 left_hand_y = 250
-
 arm_thiccness = 30
+
+#timer
+start_ticks = pygame.time.get_ticks()
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((screen_width, screen_height))
@@ -43,6 +45,10 @@ pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x
 pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
 while True:
+    seconds = (pygame.time.get_ticks()-start_ticks)/1000
+    if seconds>30:
+        break
+    print seconds
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
