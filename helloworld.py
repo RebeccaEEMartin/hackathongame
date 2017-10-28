@@ -3,8 +3,8 @@ import math
 from pygame.locals import *
 
 #global variables
-screen_width = 400
-screen_height = 300
+screen_width = 800
+screen_height = 600
 body_top_left_x = screen_width/3
 body_top_left_y = screen_height/2
 body_width = screen_width/3
@@ -22,7 +22,7 @@ left_hand_y = 250
 arm_thiccness = 30
 
 pygame.init()
-DISPLAYSURF = pygame.display.set_mode((800,600) ,0,24)
+DISPLAYSURF = pygame.display.set_mode((screen_width,screen_height) ,0,24)
 pygame.display.set_caption('dwab dwab revolution 2017')
 
 #setting up colours
@@ -108,7 +108,7 @@ while True:
         break
     timer_label = myfont.render(str(seconds),1,RED)
     DISPLAYSURF.blit(timer_label, (screen_width-30,5))
-    print seconds
+
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
