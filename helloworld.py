@@ -77,7 +77,7 @@ pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
 #left upper arm:
 pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
 #lower left arm:
-pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+#pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
 counter  = 0
 
@@ -85,6 +85,8 @@ counter  = 0
 myfont = pygame.font.SysFont("monospace", 30)
 
 # render text
+angle = 2*math.pi - (math.pi-math.acos((left_elbow_y-body_height)/arm_length))
+
 
 
 #timer
@@ -104,13 +106,16 @@ while True:
     #left upper arm:
     pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
     #lower left arm:
-    pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+    #pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
     if game_over == False:
+        angle = max(math.pi/2,angle-0.001)
+        left_elbow_x = arm_length*math.cos(angle) + left_should_x
+        left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
-        if seconds>30:
-            game_over = True
+        #if seconds>30:
+            #game_over = True
         timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
         DISPLAYSURF.blit(timer_label, (screen_width-400,5))
 
@@ -120,12 +125,13 @@ while True:
                 sys.exit()
             elif event.type == KEYDOWN:
                 if event.key == K_q:
+                    angle += 0.3
                     counter+=1
                     #raise left elbow
                     print "q pressed"
                     print "test"
-                    left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
-                    left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
+                    left_elbow_x = arm_length*math.cos(angle) + left_should_x
+                    left_elbow_y = arm_length*math.sin(angle) + left_should_y
     else:
         #display end screen
         break
