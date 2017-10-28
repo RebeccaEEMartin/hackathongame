@@ -41,10 +41,28 @@ pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x
 #lower left arm:
 pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-counter = []
+counter  = 0
+
+# initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
+myfont = pygame.font.SysFont("monospace", 15)
+
+# render text
+label = myfont.render(str(counter), 1, (255,0,0))
+DISPLAYSURF.blit(label, (5, 5))
 
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+        elif event.type == KEYDOWN:
+            if event.key == K_q:
+                counter+=1
+                label = myfont.render(str(counter), 1, (255,0,0))
+                DISPLAYSURF.blit(label, (5, 5))
+                #raise left elbow
+                print "q pressed"
+        elif event.type == KEYDOWN:
+        	if event.key == K_w:
+        		print "test"
+    pygame.display.update()
