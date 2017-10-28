@@ -1,4 +1,5 @@
 import pygame, sys
+import math
 from pygame.locals import *
 
 #global variables
@@ -62,7 +63,7 @@ while True:
                 DISPLAYSURF.blit(label, (5, 5))
                 #raise left elbow
                 print "q pressed"
-        elif event.type == KEYDOWN:
-        	if event.key == K_w:
-        		print "test"
+                print "test"
+                left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
+                left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
     pygame.display.update()
