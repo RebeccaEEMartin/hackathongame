@@ -2,9 +2,10 @@ import pygame, sys
 import math
 from pygame.locals import *
 
+
 #global variables
-screen_width = 400
-screen_height = 300
+screen_width = 800
+screen_height = 600
 body_top_left_x = screen_width/3
 body_top_left_y = screen_height/2
 body_width = screen_width/3
@@ -20,12 +21,10 @@ left_elbow_y = left_should_y + arm_length
 left_hand_x = 50
 left_hand_y = 250
 arm_thiccness = 30
-
-#timer
-start_ticks = pygame.time.get_ticks()
+game_over = False
 
 pygame.init()
-DISPLAYSURF = pygame.display.set_mode((800,600) ,0,24)
+DISPLAYSURF = pygame.display.set_mode((screen_width,screen_height) ,0,24)
 pygame.display.set_caption('dwab dwab revolution 2017')
 
 #setting up colours
@@ -83,29 +82,53 @@ pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,l
 counter  = 0
 
 # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
-myfont = pygame.font.SysFont("monospace", 15)
+myfont = pygame.font.SysFont("monospace", 30)
 
 # render text
-label = myfont.render(str(counter), 1, RED)
-DISPLAYSURF.blit(label, (5, 5))
+
+
+#timer
+seconds = 0
+start_ticks = pygame.time.get_ticks()
 
 while True:
-    seconds = (pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>30:
+    #clear screen
+    DISPLAYSURF.fill(WHITE)
+    counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
+    DISPLAYSURF.blit(counterLabel, (5, 5))
+    #redraw static images
+    #body:
+    pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,body_height))
+    #head:
+    pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
+    #left upper arm:
+    pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
+    #lower left arm:
+    pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+
+    if game_over == False:
+
+        seconds = (pygame.time.get_ticks()-start_ticks)/1000
+        if seconds>30:
+            game_over = True
+        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+                    counter+=1
+                    #raise left elbow
+                    print "q pressed"
+                    print "test"
+                    left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
+                    left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
+    else:
+        #display end screen
         break
-    print seconds
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type == KEYDOWN:
-            if event.key == K_q:
-                counter+=1
-                label = myfont.render(str(counter), 1, (255,0,0))
-                DISPLAYSURF.blit(label, (5, 5))
-                #raise left elbow
-                print "q pressed"
-                print "test"
-                left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
-                left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
+
+
     pygame.display.update()
