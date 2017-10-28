@@ -2,6 +2,7 @@ import pygame, sys
 import math
 from pygame.locals import *
 
+
 #global variables
 screen_width = 800
 screen_height = 600
@@ -83,8 +84,7 @@ counter  = 0
 myfont = pygame.font.SysFont("monospace", 15)
 
 # render text
-label = myfont.render(str(counter), 1, RED)
-DISPLAYSURF.blit(label, (5, 5))
+
 
 #timer
 seconds = 0
@@ -93,6 +93,9 @@ start_ticks = pygame.time.get_ticks()
 while True:
     #clear screen
     DISPLAYSURF.fill(WHITE)
+
+    counterLabel = myfont.render(str(counter), 1, RED)
+    DISPLAYSURF.blit(counterLabel, (5, 5))
     #redraw static images
     #body:
     pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,body_height))
@@ -108,7 +111,7 @@ while True:
         break
     timer_label = myfont.render(str(seconds),1,RED)
     DISPLAYSURF.blit(timer_label, (screen_width-30,5))
-
+    
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -116,8 +119,6 @@ while True:
         elif event.type == KEYDOWN:
             if event.key == K_q:
                 counter+=1
-                label = myfont.render(str(counter), 1, RED)
-                DISPLAYSURF.blit(label, (5, 5))
                 #raise left elbow
                 print "q pressed"
                 print "test"
