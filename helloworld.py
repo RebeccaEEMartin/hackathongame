@@ -22,6 +22,7 @@ left_elbow_y = left_should_y + arm_length
 left_hand_x = 50
 left_hand_y = 250
 arm_thiccness = 30
+game_over = False
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((screen_width,screen_height) ,0,24)
@@ -113,7 +114,6 @@ start_ticks = pygame.time.get_ticks()
 while True:
     #clear screen
     DISPLAYSURF.fill(WHITE)
-
     counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
     DISPLAYSURF.blit(counterLabel, (5, 5))
     #redraw static images
@@ -126,23 +126,29 @@ while True:
     #lower left arm:
     pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-    seconds = (pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>29:
+    if game_over == False:
+
+        seconds = (pygame.time.get_ticks()-start_ticks)/1000
+        if seconds>29:
+            game_over = True
+        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+                    counter+=1
+                    #raise left elbow
+                    print "q pressed"
+                    print "test"
+                    left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
+                    left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
+    else:
+        #display end screen
         break
-    timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
-    DISPLAYSURF.blit(timer_label, (screen_width-400,5))
-    if (seconds%5) == 0:
-    	random_dab()
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-        elif event.type == KEYDOWN:
-            if event.key == K_q:
-                counter+=1
-                #raise left elbow
-                print "q pressed"
-                print "test"
-                left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
-                left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
+
+
     pygame.display.update()
