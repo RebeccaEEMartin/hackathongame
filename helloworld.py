@@ -2,6 +2,7 @@ import pygame, sys
 import math
 from pygame.locals import *
 
+
 #global variables
 screen_width = 400
 screen_height = 300
@@ -50,14 +51,13 @@ counter  = 0
 myfont = pygame.font.SysFont("monospace", 15)
 
 # render text
-label = myfont.render(str(counter), 1, RED)
-DISPLAYSURF.blit(label, (5, 5))
+counterLabel = myfont.render(str(counter), 1, RED)
+DISPLAYSURF.blit(counterLabel, (5, 5))
 
 while True:
     seconds = (pygame.time.get_ticks()-start_ticks)/1000
     if seconds>30:
         break
-    print seconds
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
@@ -65,8 +65,8 @@ while True:
         elif event.type == KEYDOWN:
             if event.key == K_q:
                 counter+=1
-                label = myfont.render(str(counter), 1, (255,0,0))
-                DISPLAYSURF.blit(label, (5, 5))
+                counterLabel.txt=str(counter)
+                counterLabel.update()
                 #raise left elbow
                 print "q pressed"
                 print "test"
