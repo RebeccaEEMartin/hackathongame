@@ -1,6 +1,7 @@
 import pygame, sys
 import math
 from pygame.locals import *
+from random import randint
 
 
 #global variables
@@ -31,6 +32,25 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255,0,0)
 
+
+
+
+
+def left_dab():
+    dab_label = myfont.render("LEFT DAB",1, RED)
+    DISPLAYSURF.blit(dab_label, (300, 50))
+
+def right_dab():
+    dab_label = myfont.render("RIGHT DAB",1, RED)
+    DISPLAYSURF.blit(dab_label, (300, 50))
+
+
+def random_dab():
+	random_int = randint(0, 9)
+	if random_int > 4:
+		left_dab()
+	else:
+		right_dab()
 
 def intro():
 	class Background(pygame.sprite.Sprite):
@@ -107,11 +127,12 @@ while True:
     pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
     seconds = (pygame.time.get_ticks()-start_ticks)/1000
-    if seconds>30:
+    if seconds>29:
         break
     timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
     DISPLAYSURF.blit(timer_label, (screen_width-400,5))
-
+    if (seconds%5) == 0:
+    	random_dab()
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
