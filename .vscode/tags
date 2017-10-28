@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BLACK	../helloworld.py	/^BLACK = (0,0,0)$/;"	kind:variable	line:29
+DISPLAYSURF	../helloworld.py	/^DISPLAYSURF = pygame.display.set_mode((screen_width, screen_height))$/;"	kind:variable	line:25
+RED	../helloworld.py	/^RED = (255,0,0)$/;"	kind:variable	line:31
+WHITE	../helloworld.py	/^WHITE = (255,255,255)$/;"	kind:variable	line:30
+arm_length	../helloworld.py	/^arm_length = 80$/;"	kind:variable	line:14
+arm_thiccness	../helloworld.py	/^arm_thiccness = 30$/;"	kind:variable	line:22
+body_height	../helloworld.py	/^body_height = screen_height\/2$/;"	kind:variable	line:10
+body_top_left_x	../helloworld.py	/^body_top_left_x = screen_width\/3$/;"	kind:variable	line:7
+body_top_left_y	../helloworld.py	/^body_top_left_y = screen_height\/2$/;"	kind:variable	line:8
+body_width	../helloworld.py	/^body_width = screen_width\/3$/;"	kind:variable	line:9
+head_rad	../helloworld.py	/^head_rad = 30$/;"	kind:variable	line:11
+head_x	../helloworld.py	/^head_x = screen_width\/2$/;"	kind:variable	line:12
+head_y	../helloworld.py	/^head_y = screen_height\/2 - head_rad$/;"	kind:variable	line:13
+helloworld.py	../helloworld.py	1;"	kind:file	line:1
+left_elbow_x	../helloworld.py	/^left_elbow_x = left_should_x - 20$/;"	kind:variable	line:17
+left_elbow_y	../helloworld.py	/^left_elbow_y = left_should_y + arm_length$/;"	kind:variable	line:18
+left_hand_x	../helloworld.py	/^left_hand_x = 50$/;"	kind:variable	line:19
+left_hand_y	../helloworld.py	/^left_hand_y = 250$/;"	kind:variable	line:20
+left_should_x	../helloworld.py	/^left_should_x = body_top_left_x$/;"	kind:variable	line:15
+left_should_y	../helloworld.py	/^left_should_y = body_top_left_y$/;"	kind:variable	line:16
+pygame	../helloworld.py	/^import pygame, sys$/;"	kind:namespace	line:1
+screen_height	../helloworld.py	/^screen_height = 300$/;"	kind:variable	line:6
+screen_width	../helloworld.py	/^screen_width = 400$/;"	kind:variable	line:5
+sys	../helloworld.py	/^import pygame, sys$/;"	kind:namespace	line:1
