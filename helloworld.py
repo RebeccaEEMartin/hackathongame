@@ -23,6 +23,7 @@ left_hand_x = 50
 left_hand_y = 250
 arm_thiccness = 30
 game_over = False
+direction_of_dab = "right"
 
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((screen_width,screen_height) ,0,24)
@@ -33,25 +34,12 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255,0,0)
 
-
-
-
-
-def left_dab():
-    dab_label = myfont.render("LEFT DAB",1, RED)
-    DISPLAYSURF.blit(dab_label, (300, 50))
-
-def right_dab():
-    dab_label = myfont.render("RIGHT DAB",1, RED)
-    DISPLAYSURF.blit(dab_label, (300, 50))
-
-
 def random_dab():
-	random_int = randint(0, 9)
-	if random_int > 4:
-		left_dab()
-	else:
-		right_dab()
+    random_int = randint(0, 9)
+    if random_int > 4:
+        return "right"
+    else:
+        return "left"
 
 def intro():
 	class Background(pygame.sprite.Sprite):
@@ -111,6 +99,8 @@ myfont = pygame.font.SysFont("monospace", 30)
 seconds = 0
 start_ticks = pygame.time.get_ticks()
 
+foundNumbers = []
+
 while True:
     #clear screen
     DISPLAYSURF.fill(WHITE)
@@ -131,6 +121,17 @@ while True:
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
         if seconds>29:
             game_over = True
+        if seconds%3==0 and seconds not in foundNumbers:
+        	direction_of_dab = random_dab()
+        	foundNumbers.append(seconds)
+        
+        if direction_of_dab == "left":
+		    dab_label = myfont.render("LEFT DAB",1, RED)
+		    DISPLAYSURF.blit(dab_label, (300, 50))
+        else:
+		    dab_label = myfont.render("RIGHT DAB",1, RED)
+		    DISPLAYSURF.blit(dab_label, (300, 50))
+
         timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
         DISPLAYSURF.blit(timer_label, (screen_width-400,5))
 
