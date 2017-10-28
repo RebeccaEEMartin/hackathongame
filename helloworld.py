@@ -65,6 +65,7 @@ def intro():
 			DISPLAYSURF.blit(BackGround.image, BackGround.rect)
 			start = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (200, 400, 90, 30))
 			quit = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (400, 400, 70, 30))
+			myfont=pygame.font.SysFont("Britannic Bold", 40)
 			title=myfont.render("DWABP DWABP REVOLUTION 2017", 1, (255, 0, 0))
 			quittext=myfont.render("QUIT", 1, (255, 0, 0))
 			starttext=myfont.render("START", 1, (255, 0, 0))
@@ -145,7 +146,7 @@ def main_game():
 
     counter = 0
     direction_of_dab = "right"
-    while True:
+    while game_over == False:
         #clear screen
         DISPLAYSURF.fill(WHITE)
         counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
@@ -160,46 +161,42 @@ def main_game():
         #lower left arm:
         pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-        if game_over == False:
-            angle = max(math.pi/2,angle-0.003)
-            left_elbow_x = arm_length*math.cos(angle) + left_should_x
-            left_elbow_y = arm_length*math.sin(angle) + left_should_y
+    	angle = max(math.pi/2,angle-0.003)
+        left_elbow_x = arm_length*math.cos(angle) + left_should_x
+        left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
-            seconds = (pygame.time.get_ticks()-start_ticks)/1000
-            if seconds>29:
-                game_over = True
-            if seconds%3==0 and seconds not in foundNumbers:
-                direction_of_dab = random_dab()
-                foundNumbers.append(seconds)
+        seconds = (pygame.time.get_ticks()-start_ticks)/1000
+        if seconds>29:
+            game_over = True
+        if seconds%3==0 and seconds not in foundNumbers:
+            direction_of_dab = random_dab()
+            foundNumbers.append(seconds)
 
-            if direction_of_dab == "left":
-                dab_label = myfont.render("LEFT DAB",1, RED)
-                DISPLAYSURF.blit(dab_label, (300, 50))
-            else:
-                dab_label = myfont.render("RIGHT DAB",1, RED)
-                DISPLAYSURF.blit(dab_label, (300, 50))
-
-            timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
-            DISPLAYSURF.blit(timer_label, (screen_width-400,5))
-
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == KEYDOWN:
-                    if event.key == K_q:
-                        counter+=1
-                        #raise left elbow
-                        print "q pressed"
-                        angle = angle+0.3
-                        left_elbow_x = arm_length*math.cos(angle) + left_should_x
-                        left_elbow_y = arm_length*math.sin(angle) + left_should_y
+        if direction_of_dab == "left":
+            dab_label = myfont.render("LEFT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
         else:
-            #display end screen
-            break
+            dab_label = myfont.render("RIGHT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
 
+        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+		            counter+=1
+		            #raise left elbow
+		            print "q pressed"
+		            angle = angle+0.3
+		            left_elbow_x = arm_length*math.cos(angle) + left_should_x
+		            left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
         pygame.display.update()
+
 
 while True:
 
