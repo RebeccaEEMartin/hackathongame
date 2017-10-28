@@ -81,7 +81,7 @@ pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,l
 counter  = 0
 
 # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
-myfont = pygame.font.SysFont("monospace", 15)
+myfont = pygame.font.SysFont("monospace", 30)
 
 # render text
 
@@ -94,7 +94,7 @@ while True:
     #clear screen
     DISPLAYSURF.fill(WHITE)
 
-    counterLabel = myfont.render(str(counter), 1, RED)
+    counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
     DISPLAYSURF.blit(counterLabel, (5, 5))
     #redraw static images
     #body:
@@ -109,9 +109,9 @@ while True:
     seconds = (pygame.time.get_ticks()-start_ticks)/1000
     if seconds>30:
         break
-    timer_label = myfont.render(str(seconds),1,RED)
-    DISPLAYSURF.blit(timer_label, (screen_width-30,5))
-    
+    timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+    DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
