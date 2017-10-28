@@ -87,10 +87,12 @@ counter  = 0
 myfont = pygame.font.SysFont("monospace", 15)
 
 # render text
-counterLabel = myfont.render(str(counter), 1, RED)
-DISPLAYSURF.blit(counterLabel, (5, 5))
+
 
 while True:
+    DISPLAYSURF.fill(WHITE)
+    counterLabel = myfont.render(str(counter), 1, RED)
+    DISPLAYSURF.blit(counterLabel, (5, 5))
     seconds = (pygame.time.get_ticks()-start_ticks)/1000
     if seconds>30:
         break
@@ -101,8 +103,6 @@ while True:
         elif event.type == KEYDOWN:
             if event.key == K_q:
                 counter+=1
-                counterLabel.txt=str(counter)
-                counterLabel.update()
                 #raise left elbow
                 print "q pressed"
                 print "test"
