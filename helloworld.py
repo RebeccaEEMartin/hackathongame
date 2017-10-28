@@ -28,9 +28,25 @@ pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,b
 #head:
 pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
 
+counter = []
+
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
     pygame.display.update()
+
+
+
+for event in pygame.event.get():
+
+    if event.type == MOUSEBUTTONDOWN:
+        for i in range(0, 1):
+            x, y = event.pos
+            clicks.append([x, y])
+            print clicks
+
+    if len(clicks) == 2:
+        # do something
+        clicks = []
