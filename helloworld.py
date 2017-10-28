@@ -1,8 +1,6 @@
 import pygame, sys
+import math
 from pygame.locals import *
-from math import pi
-import random
-import PyParticles
 
 #global variables
 screen_width = 400
@@ -46,8 +44,14 @@ pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x
 #lower left arm:
 pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-class ArmSection():
+counter  = 0
 
+# initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
+myfont = pygame.font.SysFont("monospace", 15)
+
+# render text
+label = myfont.render(str(counter), 1, RED)
+DISPLAYSURF.blit(label, (5, 5))
 
 while True:
     seconds = (pygame.time.get_ticks()-start_ticks)/1000
@@ -60,7 +64,12 @@ while True:
             sys.exit()
         elif event.type == KEYDOWN:
             if event.key == K_q:
+                counter+=1
+                label = myfont.render(str(counter), 1, (255,0,0))
+                DISPLAYSURF.blit(label, (5, 5))
                 #raise left elbow
                 print "q pressed"
-
+                print "test"
+                left_elbow_x = arm_length*math.cos(math.pi/120) + left_should_x
+                left_elbow_y = arm_length*math.sin(math.pi/120) + left_should_y
     pygame.display.update()
