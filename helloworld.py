@@ -1,5 +1,8 @@
 import pygame, sys
 from pygame.locals import *
+from math import pi
+import random
+import PyParticles
 
 #global variables
 screen_width = 400
@@ -40,6 +43,9 @@ pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
 pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
 #lower left arm:
 pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+
+class ArmSection():
+
 
 while True:
     for event in pygame.event.get():
