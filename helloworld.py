@@ -132,16 +132,15 @@ def check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,rig
 
 def main_game():
 
-<<<<<<< HEAD
-    BackGround = upload_image('boydorr.png', [0,0])
-    DISPLAYSURF.blit(BackGround.image, BackGround.rect)
+    BackGround1 = upload_image('boydorr.png', [-200,300])
+    DISPLAYSURF.blit(BackGround1.image, BackGround1.rect)
 
-=======
+    BackGround2 = upload_image('boydorr2.png', [600,300])
+    DISPLAYSURF.blit(BackGround2.image, BackGround2.rect)
     #a variable to record if a successful dab has occurred
     successful_dab = False
 
     arm_length = 120
->>>>>>> d31d7d40b4d525918608566e57be46bd1b1a9f6b
     upper_arm_length = 100
     upper_arm_thiccness = 50
     lower_arm_length = 120
@@ -196,7 +195,8 @@ def main_game():
 
         #clear screen
         DISPLAYSURF.fill(WHITE)
-        DISPLAYSURF.blit(BackGround.image, BackGround.rect)
+        DISPLAYSURF.blit(BackGround1.image, BackGround1.rect)
+        DISPLAYSURF.blit(BackGround2.image, BackGround2.rect)
         counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
         DISPLAYSURF.blit(counterLabel, (5, 5))
         #redraw static images
@@ -276,7 +276,6 @@ def main_game():
                 sys.exit()
             elif event.type == KEYDOWN:
                 if event.key == K_q:
-                    #counter+=1
                     #raise left elbow
                     left_shoulder_angle = left_shoulder_angle+0.3
                 elif event.key == K_w:
