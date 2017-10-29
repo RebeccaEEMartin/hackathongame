@@ -14,10 +14,8 @@ body_height = screen_height/2
 head_rad = 30
 head_x = screen_width/2
 head_y = screen_height/2 - head_rad
-arm_length = 80
 left_should_x = body_top_left_x
 left_should_y = body_top_left_y
-arm_thiccness = 30
 game_over = False
 
 pygame.init()
@@ -29,6 +27,8 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255,0,0)
 BLUE = (0,255,0)
+SKIN = (255,224,189)
+YELLOW = (255,255,0)
 myfont=pygame.font.SysFont("Britannic Bold", 40)
 counter  = 0
 
@@ -138,19 +138,24 @@ def main_game():
     successful_dab = False
 
     arm_length = 120
+    upper_arm_length = 100
+    upper_arm_thiccness = 50
+    lower_arm_length = 120
+    lower_arm_thiccness = 30
+
     start_ticks = pygame.time.get_ticks()
     left_elbow_x = left_should_x - 20
-    left_elbow_y = left_should_y + arm_length
+    left_elbow_y = left_should_y + upper_arm_length
     left_hand_x = left_elbow_x
-    left_hand_y = left_elbow_y + arm_length
+    left_hand_y = left_elbow_y + upper_arm_length
 
     #right arm
     right_should_x = body_top_left_x + body_width
     right_should_y = body_top_left_y
     right_elbow_x = right_should_x
-    right_elbow_y = right_should_y + arm_length
+    right_elbow_y = right_should_y + upper_arm_length
     right_hand_x = right_elbow_x
-    right_hand_y = right_elbow_y + arm_length
+    right_hand_y = right_elbow_y + upper_arm_length
 
     #initialising surface
     DISPLAYSURF.fill(WHITE)
@@ -159,12 +164,6 @@ def main_game():
     DISPLAYSURF.blit(doug.image, doug.rect)
     #head:
     pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
-    #left upper arm:
-    #leftbicep = upload_image('dabbicepleft.png', [left_should_x,left_should_y])
-    #DISPLAYSURF.blit(leftbicep.image, leftbicep.rect)
-    pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
-    #lower left arm:
-    pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
     #angles
     left_shoulder_angle = math.pi/2
@@ -182,7 +181,7 @@ def main_game():
     counter = 0
     direction_of_dab = "right"
     #doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
-    while seconds<60:
+    while seconds<30:
 
         #check for dabs
         if check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,right_elbow_angle) == True:
@@ -201,23 +200,22 @@ def main_game():
         #head
        	#tbc
         #left upper arm:
-        #DISPLAYSURF.blit(leftbicep.image, leftbicep.rect)
-        pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
+        pygame.draw.line(DISPLAYSURF, YELLOW, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),upper_arm_thiccness)
         #lower left arm:
-        pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+        pygame.draw.line(DISPLAYSURF, SKIN, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),lower_arm_thiccness)
         #upper right arm:
-        pygame.draw.line(DISPLAYSURF,BLACK, (right_should_x, right_should_y),(right_elbow_x,right_elbow_y),arm_thiccness)
+        pygame.draw.line(DISPLAYSURF, YELLOW, (right_should_x, right_should_y),(right_elbow_x,right_elbow_y),upper_arm_thiccness)
         #lower right arm:
-        pygame.draw.line(DISPLAYSURF, BLUE, (right_elbow_x, right_elbow_y),(right_hand_x,right_hand_y),arm_thiccness)
+        pygame.draw.line(DISPLAYSURF, SKIN, (right_elbow_x, right_elbow_y),(right_hand_x,right_hand_y),lower_arm_thiccness)
 
-        left_elbow_x = arm_length*math.cos(left_shoulder_angle) + left_should_x
-        left_elbow_y = arm_length*math.sin(left_shoulder_angle) + left_should_y
-        left_hand_x = arm_length*math.cos(left_elbow_angle) + left_elbow_x
-        left_hand_y = arm_length*math.sin(left_elbow_angle) + left_elbow_y
-        right_elbow_x = arm_length*math.cos(right_shoulder_angle) + right_should_x
-        right_elbow_y = arm_length*math.sin(right_shoulder_angle) + right_should_y
-        right_hand_x = arm_length*math.cos(right_elbow_angle) + right_elbow_x
-        right_hand_y = arm_length*math.sin(right_elbow_angle) + right_elbow_y
+        left_elbow_x = upper_arm_length*math.cos(left_shoulder_angle) + left_should_x
+        left_elbow_y = upper_arm_length*math.sin(left_shoulder_angle) + left_should_y
+        left_hand_x = lower_arm_length*math.cos(left_elbow_angle) + left_elbow_x
+        left_hand_y = lower_arm_length*math.sin(left_elbow_angle) + left_elbow_y
+        right_elbow_x = upper_arm_length*math.cos(right_shoulder_angle) + right_should_x
+        right_elbow_y = upper_arm_length*math.sin(right_shoulder_angle) + right_should_y
+        right_hand_x = lower_arm_length*math.cos(right_elbow_angle) + right_elbow_x
+        right_hand_y = lower_arm_length*math.sin(right_elbow_angle) + right_elbow_y
 
         if left_shoulder_angle > (math.pi*5)/2:
             left_shoulder_angle = math.pi/2
