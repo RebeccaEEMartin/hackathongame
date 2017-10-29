@@ -61,7 +61,6 @@ def intro():
 	BackGround = upload_image('Untitled.png', [0,0])
 	while (end_it==False):
 		for event in pygame.event.get():
-			DISPLAYSURF.fill([255, 255, 255])
 			DISPLAYSURF.blit(BackGround.image, BackGround.rect)
 			start = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (200, 400, 90, 30))
 			quit = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (400, 400, 70, 30))
@@ -90,7 +89,6 @@ def outro(num):
 	BackGround = upload_image('Untitled2.png', [0,0])
 	while (end_it==False):
 		for event in pygame.event.get():
-			DISPLAYSURF.fill([255, 255, 255])
 			DISPLAYSURF.blit(BackGround.image, BackGround.rect)
 			start = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (200, 400, 90, 30))
 			quit = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (400, 400, 70, 30))
@@ -113,6 +111,10 @@ def outro(num):
 			pygame.display.flip()
 
 def main_game():
+
+    BackGround = upload_image('boydorr.png', [0,0])
+    DISPLAYSURF.blit(BackGround.image, BackGround.rect)
+
     upper_arm_length = 100
     upper_arm_thiccness = 50
     lower_arm_length = 120
@@ -159,6 +161,7 @@ def main_game():
     while seconds<30:
         #clear screen
         DISPLAYSURF.fill(WHITE)
+        DISPLAYSURF.blit(BackGround.image, BackGround.rect)
         counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
         DISPLAYSURF.blit(counterLabel, (5, 5))
         #redraw static images
