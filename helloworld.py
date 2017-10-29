@@ -33,12 +33,12 @@ RED = (255,0,0)
 myfont=pygame.font.SysFont("Britannic Bold", 40)
 counter  = 0
 
-class Background(pygame.sprite.Sprite):
-	def __init__(self, image_file, location):
-		pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
-		self.image = pygame.image.load(image_file)
-		self.rect = self.image.get_rect()
-		self.rect.left, self.rect.top = location
+class upload_image(pygame.sprite.Sprite):
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
+        self.image = pygame.image.load(image_file)
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
 
 
 def left_dab():
@@ -58,7 +58,7 @@ def random_dab():
 
 def intro():
 	end_it=False
-	BackGround = Background('Untitled.png', [0,0])
+	BackGround = upload_image('Untitled.png', [0,0])
 	while (end_it==False):
 		for event in pygame.event.get():
 			DISPLAYSURF.fill([255, 255, 255])
@@ -90,7 +90,7 @@ myfont = pygame.font.SysFont("monospace", 30)
 
 def outro():
 	end_it=False
-	BackGround = Background('Untitled2.png', [0,0])
+	BackGround = upload_image('Untitled2.png', [0,0])
 	while (end_it==False):
 		for event in pygame.event.get():
 			DISPLAYSURF.fill([255, 255, 255])
@@ -121,7 +121,8 @@ def main_game():
     #initialising surface
     DISPLAYSURF.fill(WHITE)
     #body:
-    pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,body_height))
+    doug = upload_image('doug.png', [0,0])
+    DISPLAYSURF.blit(doug.image, doug.rect)
     #head:
     pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
     #left upper arm:
@@ -146,6 +147,7 @@ def main_game():
 
     counter = 0
     direction_of_dab = "right"
+    doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
     while game_over == False:
         #clear screen
         DISPLAYSURF.fill(WHITE)
@@ -153,9 +155,10 @@ def main_game():
         DISPLAYSURF.blit(counterLabel, (5, 5))
         #redraw static images
         #body:
-        pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,body_height))
-        #head:
-        pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
+        doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-200])
+        DISPLAYSURF.blit(doug.image, doug.rect)
+        #head
+       	#tbc
         #left upper arm:
         pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
         #lower left arm:
@@ -188,12 +191,12 @@ def main_game():
                 sys.exit()
             elif event.type == KEYDOWN:
                 if event.key == K_q:
-		            counter+=1
-		            #raise left elbow
-		            print "q pressed"
-		            angle = angle+0.3
-		            left_elbow_x = arm_length*math.cos(angle) + left_should_x
-		            left_elbow_y = arm_length*math.sin(angle) + left_should_y
+                    counter+=1
+                    #raise left elbow
+                    print "q pressed"
+                    angle = angle+0.3
+                    left_elbow_x = arm_length*math.cos(angle) + left_should_x
+                    left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
         pygame.display.update()
 
