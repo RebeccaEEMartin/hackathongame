@@ -122,6 +122,15 @@ def main_game():
     left_elbow_y = left_should_y + arm_length
     left_hand_x = left_elbow_x
     left_hand_y = left_elbow_y + arm_length
+
+    #right arm
+    right_should_x = body_top_left_x + body_width
+    right_should_y = body_top_left_y
+    right_elbow_x = right_should_x
+    right_elbow_y = right_should_y + arm_length
+    right_hand_x = right_elbow_x
+    right_hand_y = right_elbow_y + arm_length
+
     #initialising surface
     DISPLAYSURF.fill(WHITE)
     #body:
@@ -137,8 +146,10 @@ def main_game():
     pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
     #angles
-    shoulder_angle = math.pi/2
-    elbow_angle = math.pi/2
+    left_shoulder_angle = math.pi/2
+    left_elbow_angle = math.pi/2
+    right_shoulder_angle = math.pi/2
+    right_elbow_angle = math.pi/2
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
     myfont = pygame.font.SysFont("monospace", 30)
@@ -165,27 +176,51 @@ def main_game():
         pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
         #lower left arm:
         pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+        #upper right arm:
+        pygame.draw.line(DISPLAYSURF,BLACK, (right_should_x, right_should_y),(right_elbow_x,right_elbow_y),arm_thiccness)
+        #lower right arm:
+        pygame.draw.line(DISPLAYSURF, BLUE, (right_elbow_x, right_elbow_y),(right_hand_x,right_hand_y),arm_thiccness)
 
-        left_elbow_x = arm_length*math.cos(shoulder_angle) + left_should_x
-        left_elbow_y = arm_length*math.sin(shoulder_angle) + left_should_y
-        left_hand_x = arm_length*math.cos(elbow_angle) + left_elbow_x
-        left_hand_y = arm_length*math.sin(elbow_angle) + left_elbow_y
+        left_elbow_x = arm_length*math.cos(left_shoulder_angle) + left_should_x
+        left_elbow_y = arm_length*math.sin(left_shoulder_angle) + left_should_y
+        left_hand_x = arm_length*math.cos(left_elbow_angle) + left_elbow_x
+        left_hand_y = arm_length*math.sin(left_elbow_angle) + left_elbow_y
+        right_elbow_x = arm_length*math.cos(right_shoulder_angle) + right_should_x
+        right_elbow_y = arm_length*math.sin(right_shoulder_angle) + right_should_y
+        right_hand_x = arm_length*math.cos(right_elbow_angle) + right_elbow_x
+        right_hand_y = arm_length*math.sin(right_elbow_angle) + right_elbow_y
 
-        if shoulder_angle > (math.pi*5)/2:
-            shoulder_angle = math.pi/2
+        if left_shoulder_angle > (math.pi*5)/2:
+            left_shoulder_angle = math.pi/2
 
-        if shoulder_angle < (math.pi*3)/2:
-            shoulder_angle = max(math.pi/2,shoulder_angle-0.003)
+        if left_shoulder_angle < (math.pi*3)/2:
+            left_shoulder_angle = max(math.pi/2,left_shoulder_angle-0.003)
         else:
-            shoulder_angle = shoulder_angle+0.003
+            left_shoulder_angle = left_shoulder_angle+0.003
 
-        if elbow_angle > (math.pi*5)/2:
-            elbow_angle = math.pi/2
+        if left_elbow_angle > (math.pi*5)/2:
+            left_elbow_angle = math.pi/2
         
-        if elbow_angle < (math.pi*3)/2:
-            elbow_angle = max(math.pi/2,elbow_angle-0.003)
+        if left_elbow_angle < (math.pi*3)/2:
+            left_elbow_angle = max(math.pi/2,left_elbow_angle-0.003)
         else:
-            elbow_angle +=0.003
+            left_elbow_angle +=0.003
+
+        if right_shoulder_angle > (math.pi*5)/2:
+            right_shoulder_angle = math.pi/2
+
+        if right_shoulder_angle < (math.pi*3)/2:
+            right_shoulder_angle = max(math.pi/2,right_shoulder_angle-0.003)
+        else:
+            right_shoulder_angle = right_shoulder_angle+0.003
+
+        if right_elbow_angle > (math.pi*5)/2:
+            right_elbow_angle = math.pi/2
+        
+        if right_elbow_angle < (math.pi*3)/2:
+            right_elbow_angle = max(math.pi/2,right_elbow_angle-0.003)
+        else:
+            right_elbow_angle +=0.003
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
         if seconds>29:
@@ -213,19 +248,33 @@ def main_game():
                     counter+=1
                     #raise left elbow
                     print "q pressed"
-                    shoulder_angle = shoulder_angle+0.3
+                    left_shoulder_angle = left_shoulder_angle+0.3
                 elif event.key == K_w:
-                    if shoulder_angle-0.3 < math.pi/2:
-                        shoulder_angle += 2*math.pi - 0.3
+                    if left_shoulder_angle-0.3 < math.pi/2:
+                        left_shoulder_angle += 2*math.pi - 0.3
                     else:
-                        shoulder_angle = shoulder_angle - 0.3
+                        left_shoulder_angle = left_shoulder_angle - 0.3
                 elif event.key == K_a:
-                    elbow_angle = elbow_angle + 0.3
+                    left_elbow_angle = left_elbow_angle + 0.3
                 elif event.key == K_s:
-                    if elbow_angle-0.3 < math.pi/2:
-                        elbow_angle += 2*math.pi - 0.3
+                    if left_elbow_angle-0.3 < math.pi/2:
+                        left_elbow_angle += 2*math.pi - 0.3
                     else:
-                        elbow_angle = elbow_angle - 0.3
+                        left_elbow_angle = left_elbow_angle - 0.3
+                elif event.key == K_i:
+                    right_shoulder_angle += 0.3
+                elif event.key == K_o:
+                    if right_shoulder_angle-0.3 < math.pi/2:
+                        right_shoulder_angle += 2*math.pi - 0.3
+                    else:
+                        right_shoulder_angle = right_shoulder_angle - 0.3
+                elif event.key == K_k:
+                    right_elbow_angle = right_elbow_angle + 0.3
+                elif event.key == K_l:
+                    if right_elbow_angle-0.3 < math.pi/2:
+                        right_elbow_angle += 2*math.pi - 0.3
+                    else:
+                        right_elbow_angle = right_elbow_angle - 0.3
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
         if seconds%3==0 and seconds not in foundNumbers:
@@ -241,19 +290,6 @@ def main_game():
 
         timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
         DISPLAYSURF.blit(timer_label, (screen_width-400,5))
-
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == KEYDOWN:
-                if event.key == K_q:
-                    counter+=1
-                    #raise left elbow
-                    print "q pressed"
-                    angle = angle+0.3
-                    left_elbow_x = arm_length*math.cos(angle) + left_should_x
-                    left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
         pygame.display.update()
     return counter
