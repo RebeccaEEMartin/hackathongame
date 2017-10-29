@@ -17,8 +17,6 @@ head_y = screen_height/2 - head_rad
 arm_length = 80
 left_should_x = body_top_left_x
 left_should_y = body_top_left_y
-left_hand_x = 50
-left_hand_y = 250
 arm_thiccness = 30
 game_over = False
 
@@ -30,6 +28,7 @@ pygame.display.set_caption('dwab dwab revolution 2017')
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255,0,0)
+BLUE = (0,255,0)
 myfont=pygame.font.SysFont("Britannic Bold", 40)
 counter  = 0
 
@@ -117,6 +116,7 @@ def outro(num):
 			pygame.display.flip()
 
 def main_game():
+    arm_length = 80
     start_ticks = pygame.time.get_ticks()
     left_elbow_x = left_should_x - 20
     left_elbow_y = left_should_y + arm_length
@@ -132,10 +132,11 @@ def main_game():
     #DISPLAYSURF.blit(leftbicep.image, leftbicep.rect)
     pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
     #lower left arm:
-    pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+    pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-    # render text
-    angle = 2*math.pi - (math.pi-math.acos((left_elbow_y-body_height)/arm_length))
+    #angles
+    shoulder_angle = math.pi/2
+    elbow_angle = math.pi/2
 
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
     myfont = pygame.font.SysFont("monospace", 30)
@@ -161,11 +162,68 @@ def main_game():
         #DISPLAYSURF.blit(leftbicep.image, leftbicep.rect)
         pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
         #lower left arm:
-        pygame.draw.line(DISPLAYSURF, BLACK, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
+        pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-    	angle = max(math.pi/2,angle-0.003)
-        left_elbow_x = arm_length*math.cos(angle) + left_should_x
-        left_elbow_y = arm_length*math.sin(angle) + left_should_y
+        left_elbow_x = arm_length*math.cos(shoulder_angle) + left_should_x
+        left_elbow_y = arm_length*math.sin(shoulder_angle) + left_should_y
+        left_hand_x = arm_length*math.cos(elbow_angle) + left_elbow_x
+        left_hand_y = arm_length*math.sin(elbow_angle) + left_elbow_y
+
+        if shoulder_angle > (math.pi*5)/2:
+            shoulder_angle = math.pi/2
+
+        if shoulder_angle < (math.pi*3)/2:
+            shoulder_angle = max(math.pi/2,shoulder_angle-0.003)
+        else:
+            shoulder_angle = shoulder_angle+0.003
+
+        if elbow_angle > (math.pi*5)/2:
+            elbow_angle = math.pi/2
+        
+        if elbow_angle < (math.pi*3)/2:
+            elbow_angle = max(math.pi/2,elbow_angle-0.003)
+        else:
+            elbow_angle +=0.003
+
+        seconds = (pygame.time.get_ticks()-start_ticks)/1000
+        if seconds>29:
+            game_over = True
+        if seconds%3==0 and seconds not in foundNumbers:
+            direction_of_dab = random_dab()
+            foundNumbers.append(seconds)
+
+        if direction_of_dab == "left":
+            dab_label = myfont.render("LEFT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
+        else:
+            dab_label = myfont.render("RIGHT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
+
+        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+                    counter+=1
+                    #raise left elbow
+                    print "q pressed"
+                    shoulder_angle = shoulder_angle+0.3
+                elif event.key == K_w:
+                    if shoulder_angle-0.3 < math.pi/2:
+                        shoulder_angle += 2*math.pi - 0.3
+                    else:
+                        shoulder_angle = shoulder_angle - 0.3
+                elif event.key == K_a:
+                    elbow_angle = elbow_angle + 0.3
+                elif event.key == K_s:
+                    if elbow_angle-0.3 < math.pi/2:
+                        elbow_angle += 2*math.pi - 0.3
+                    else:
+                        elbow_angle = elbow_angle - 0.3
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
         if seconds%3==0 and seconds not in foundNumbers:
