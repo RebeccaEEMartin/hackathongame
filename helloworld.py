@@ -139,7 +139,7 @@ def check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,rig
 
 
 def main_game():
-
+    pygame.mixer.music.load("rec_2s.mp3")
     BackGround1 = upload_image('boydorr.png', [-200,300])
     DISPLAYSURF.blit(BackGround1.image, BackGround1.rect)
 
