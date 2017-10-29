@@ -2,7 +2,7 @@ import pygame, sys
 import math
 from pygame.locals import *
 from random import randint
-
+import randomdotorg
 
 #global variables
 screen_width = 800
@@ -49,7 +49,8 @@ def right_dab():
     DISPLAYSURF.blit(dab_label, (300, 50))
 
 def random_dab():
-    random_int = randint(0, 9)
+    r = randomdotorg.RandomDotOrg("shoob")
+    random_int = r.randint(0, 9)
     if random_int > 4:
         return "right"
     else:
@@ -87,7 +88,7 @@ counter  = 0
 myfont = pygame.font.SysFont("monospace", 30)
 
 
-def outro():
+def outro(num):
 	end_it=False
 	BackGround = upload_image('Untitled2.png', [0,0])
 	while (end_it==False):
@@ -98,6 +99,7 @@ def outro():
 			quit = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (400, 400, 70, 30))
 			myfont=pygame.font.SysFont("Britannic Bold", 40)
 			title=myfont.render("HAHA UNLUCKY MATE", 1, (255, 0, 0))
+			score=myfont.render("SCORE: " + str(num), 1, (255, 0, 0))
 			quittext=myfont.render("QUIT", 1, (255, 0, 0))
 			starttext=myfont.render("MENU", 1, (255, 0, 0))
 			if event.type == pygame.MOUSEBUTTONDOWN:
@@ -108,6 +110,7 @@ def outro():
 					pygame.quit()
 					sys.exit()
 			DISPLAYSURF.blit(title,(200,200))
+			DISPLAYSURF.blit(score,(200,300))
 			DISPLAYSURF.blit(starttext,(200,400))
 			DISPLAYSURF.blit(quittext, (400,400))
 			pygame.display.flip()
@@ -117,17 +120,16 @@ def main_game():
     start_ticks = pygame.time.get_ticks()
     left_elbow_x = left_should_x - 20
     left_elbow_y = left_should_y + arm_length
-    left_hand_x = left_elbow_x
-    left_hand_y = left_elbow_y + arm_length
-    print("here")
     #initialising surface
     DISPLAYSURF.fill(WHITE)
     #body:
-    doug = upload_image('doug.png', [0,0])
+    doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-200])
     DISPLAYSURF.blit(doug.image, doug.rect)
     #head:
     pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
     #left upper arm:
+    #leftbicep = upload_image('dabbicepleft.png', [left_should_x,left_should_y])
+    #DISPLAYSURF.blit(leftbicep.image, leftbicep.rect)
     pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
     #lower left arm:
     pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
@@ -139,29 +141,25 @@ def main_game():
     # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
     myfont = pygame.font.SysFont("monospace", 30)
 
-    # render text
-
-
     #timer
     seconds = 0
-    game_over = False
     foundNumbers = []
 
     counter = 0
     direction_of_dab = "right"
-    doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
-    while game_over == False:
+    #doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
+    while seconds<30:
         #clear screen
         DISPLAYSURF.fill(WHITE)
         counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
         DISPLAYSURF.blit(counterLabel, (5, 5))
         #redraw static images
         #body:
-        doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-200])
         DISPLAYSURF.blit(doug.image, doug.rect)
         #head
        	#tbc
         #left upper arm:
+        #DISPLAYSURF.blit(leftbicep.image, leftbicep.rect)
         pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
         #lower left arm:
         pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
@@ -228,8 +226,6 @@ def main_game():
                         elbow_angle = elbow_angle - 0.3
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
-        if seconds>29:
-            game_over = True
         if seconds%3==0 and seconds not in foundNumbers:
             direction_of_dab = random_dab()
             foundNumbers.append(seconds)
@@ -258,10 +254,11 @@ def main_game():
                     left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
         pygame.display.update()
+    return counter
 
 
 while True:
 
 	intro()
-	main_game()
-	outro()
+	num = main_game()
+	outro(num)
