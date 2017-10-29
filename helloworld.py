@@ -127,14 +127,14 @@ def check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,rig
     dab_l_left_should_angle = [(math.pi*9)/8,(math.pi*11)/8]
     dab_l_left_elbow_angle = dab_l_left_should_angle
     dab_l_right_should_angle = [2*math.pi,(math.pi*9)/4]
-    dab_l_right_elbow_angle = [(math.pi*3)/2,(math.pi*5)/4]
+    dab_l_right_elbow_angle = [(math.pi*9)/8,(math.pi*11)/8]
 
     if (direction_of_dab == "right" and dab_r_left_elbow_angle[0] <= left_elbow_angle <= dab_r_left_elbow_angle[1]) and (dab_r_left_should_angle[0] <= left_shoulder_angle <= dab_r_left_should_angle[1]) and (dab_r_right_elbow_angle[0] <= right_elbow_angle <= dab_r_right_elbow_angle[1]) and (dab_r_right_should_angle[0] <= right_shoulder_angle <= dab_r_right_should_angle[1]):
         return True
 
     if (direction_of_dab == "left" and dab_l_left_elbow_angle[0] <= left_elbow_angle <= dab_l_left_elbow_angle[1]) and (dab_l_left_should_angle[0] <= left_shoulder_angle <= dab_l_left_should_angle[1]) and (dab_l_right_elbow_angle[0] <= right_elbow_angle <= dab_l_right_elbow_angle[1]) and (dab_l_right_should_angle[0] <= right_shoulder_angle <= dab_l_right_should_angle[1]):
         return True
-
+        
     return False
 
 
@@ -190,7 +190,7 @@ def main_game():
     foundNumbers = []
 
     counter = 0
-    direction_of_dab = "right"
+    direction_of_dab = random_dab()
     #doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
     while seconds<30:
 
