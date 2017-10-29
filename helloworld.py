@@ -110,11 +110,38 @@ def outro(num):
 			DISPLAYSURF.blit(quittext, (400,400))
 			pygame.display.flip()
 
+def check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,right_elbow_angle):
+    #perfect dab angles
+    dab_r_left_should_angle = [(math.pi*3)/4,math.pi]
+    dab_r_left_elbow_angle = [(math.pi*3)/2,(math.pi*7)/4]
+    dab_r_right_should_angle = [(math.pi*13)/8,(math.pi*15)/8]
+    dab_r_right_elbow_angle = dab_r_right_should_angle
+    dab_l_left_should_angle = [(math.pi*9)/8,(math.pi*11)/8]
+    dab_l_left_elbow_angle = dab_l_left_should_angle
+    dab_l_right_should_angle = [2*math.pi,(math.pi*9)/4]
+    dab_l_right_elbow_angle = [(math.pi*3)/2,(math.pi*5)/4]
+
+    if (dab_r_left_elbow_angle[0] <= left_elbow_angle <= dab_r_left_elbow_angle[1]) and (dab_r_left_should_angle[0] <= left_shoulder_angle <= dab_r_left_should_angle[1]) and (dab_r_right_elbow_angle[0] <= right_elbow_angle <= dab_r_right_elbow_angle[1]) and (dab_r_right_should_angle[0] <= right_shoulder_angle <= dab_r_right_should_angle[1]):
+        return True
+
+    if (dab_l_left_elbow_angle[0] <= left_elbow_angle <= dab_l_left_elbow_angle[1]) and (dab_l_left_should_angle[0] <= left_shoulder_angle <= dab_l_left_should_angle[1]) and (dab_l_right_elbow_angle[0] <= right_elbow_angle <= dab_l_right_elbow_angle[1]) and (dab_l_right_should_angle[0] <= right_shoulder_angle <= dab_l_right_should_angle[1]):
+        return True
+
+    return False
+
+
 def main_game():
 
+<<<<<<< HEAD
     BackGround = upload_image('boydorr.png', [0,0])
     DISPLAYSURF.blit(BackGround.image, BackGround.rect)
 
+=======
+    #a variable to record if a successful dab has occurred
+    successful_dab = False
+
+    arm_length = 120
+>>>>>>> d31d7d40b4d525918608566e57be46bd1b1a9f6b
     upper_arm_length = 100
     upper_arm_thiccness = 50
     lower_arm_length = 120
@@ -159,6 +186,14 @@ def main_game():
     direction_of_dab = "right"
     #doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
     while seconds<30:
+
+        #check for dabs
+        if check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,right_elbow_angle) == True:
+            counter+=1
+            successful_dab = True
+        else:
+            successful_dab = False
+
         #clear screen
         DISPLAYSURF.fill(WHITE)
         DISPLAYSURF.blit(BackGround.image, BackGround.rect)
@@ -221,16 +256,16 @@ def main_game():
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
 
-        if seconds%3==0 and seconds not in foundNumbers:
+        if successful_dab == True and seconds%3==0 and seconds not in foundNumbers:
             direction_of_dab = random_dab()
             foundNumbers.append(seconds)
 
-        if direction_of_dab == "left":
+        """if direction_of_dab == "left":
             dab_label = myfont.render("LEFT DAB",1, RED)
             DISPLAYSURF.blit(dab_label, (300, 50))
         else:
             dab_label = myfont.render("RIGHT DAB",1, RED)
-            DISPLAYSURF.blit(dab_label, (300, 50))
+            DISPLAYSURF.blit(dab_label, (300, 50))"""
 
         timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
         DISPLAYSURF.blit(timer_label, (screen_width-400,5))
@@ -241,7 +276,7 @@ def main_game():
                 sys.exit()
             elif event.type == KEYDOWN:
                 if event.key == K_q:
-                    counter+=1
+                    #counter+=1
                     #raise left elbow
                     left_shoulder_angle = left_shoulder_angle+0.3
                 elif event.key == K_w:
