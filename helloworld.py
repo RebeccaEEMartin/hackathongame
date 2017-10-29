@@ -120,6 +120,8 @@ def main_game():
     start_ticks = pygame.time.get_ticks()
     left_elbow_x = left_should_x - 20
     left_elbow_y = left_should_y + arm_length
+    left_hand_x = left_elbow_x
+    left_hand_y = left_elbow_y + arm_length
     #initialising surface
     DISPLAYSURF.fill(WHITE)
     #body:
