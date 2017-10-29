@@ -113,7 +113,7 @@ def outro():
 			pygame.display.flip()
 
 def main_game():
-    arm_length = 80
+    arm_length = 120
     start_ticks = pygame.time.get_ticks()
     left_elbow_x = left_should_x - 20
     left_elbow_y = left_should_y + arm_length
