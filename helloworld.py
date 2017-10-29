@@ -72,7 +72,6 @@ def intro():
 			if event.type == pygame.MOUSEBUTTONDOWN:
 				mouse_pos = pygame.mouse.get_pos() # gets mouse position
 				if start.collidepoint(mouse_pos):
-					print("here")
 					end_it = True
 				if quit.collidepoint(mouse_pos):
 					pygame.quit()
@@ -81,8 +80,6 @@ def intro():
 			DISPLAYSURF.blit(starttext,(200,400))
 			DISPLAYSURF.blit(quittext, (400,400))
 			pygame.display.flip()
-
-counter  = 0
 
 # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
 myfont = pygame.font.SysFont("monospace", 30)
@@ -223,8 +220,7 @@ def main_game():
             right_elbow_angle +=0.003
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
-        if seconds>29:
-            game_over = True
+
         if seconds%3==0 and seconds not in foundNumbers:
             direction_of_dab = random_dab()
             foundNumbers.append(seconds)
@@ -247,7 +243,6 @@ def main_game():
                 if event.key == K_q:
                     counter+=1
                     #raise left elbow
-                    print "q pressed"
                     left_shoulder_angle = left_shoulder_angle+0.3
                 elif event.key == K_w:
                     if left_shoulder_angle-0.3 < math.pi/2:
@@ -275,21 +270,6 @@ def main_game():
                         right_elbow_angle += 2*math.pi - 0.3
                     else:
                         right_elbow_angle = right_elbow_angle - 0.3
-
-        seconds = (pygame.time.get_ticks()-start_ticks)/1000
-        if seconds%3==0 and seconds not in foundNumbers:
-            direction_of_dab = random_dab()
-            foundNumbers.append(seconds)
-
-        if direction_of_dab == "left":
-            dab_label = myfont.render("LEFT DAB",1, RED)
-            DISPLAYSURF.blit(dab_label, (300, 50))
-        else:
-            dab_label = myfont.render("RIGHT DAB",1, RED)
-            DISPLAYSURF.blit(dab_label, (300, 50))
-
-        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
-        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
 
         pygame.display.update()
     return counter
