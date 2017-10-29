@@ -32,12 +32,12 @@ BLUE = (0,255,0)
 myfont=pygame.font.SysFont("Britannic Bold", 40)
 counter  = 0
 
-class Background(pygame.sprite.Sprite):
-	def __init__(self, image_file, location):
-		pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
-		self.image = pygame.image.load(image_file)
-		self.rect = self.image.get_rect()
-		self.rect.left, self.rect.top = location
+class upload_image(pygame.sprite.Sprite):
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
+        self.image = pygame.image.load(image_file)
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
 
 
 def left_dab():
@@ -56,29 +56,30 @@ def random_dab():
         return "left"
 
 def intro():
-    end_it=False
-    BackGround = Background('Untitled.png', [0,0])
-    while (end_it==False):
-        for event in pygame.event.get():
-            DISPLAYSURF.fill([255, 255, 255])
-            DISPLAYSURF.blit(BackGround.image, BackGround.rect)
-            start = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (200, 400, 90, 30))
-            quit = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (400, 400, 70, 30))
-            title=myfont.render("DWABP DWABP REVOLUTION 2017", 1, (255, 0, 0))
-            quittext=myfont.render("QUIT", 1, (255, 0, 0))
-            starttext=myfont.render("START", 1, (255, 0, 0))
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos() # gets mouse position
-                if start.collidepoint(mouse_pos):
-                    print("here")
-                    end_it = True
-                if quit.collidepoint(mouse_pos):
-                    pygame.quit()
-                    sys.exit()
-            DISPLAYSURF.blit(title,(200,200))
-            DISPLAYSURF.blit(starttext,(200,400))
-            DISPLAYSURF.blit(quittext, (400,400))
-            pygame.display.flip()
+	end_it=False
+	BackGround = upload_image('Untitled.png', [0,0])
+	while (end_it==False):
+		for event in pygame.event.get():
+			DISPLAYSURF.fill([255, 255, 255])
+			DISPLAYSURF.blit(BackGround.image, BackGround.rect)
+			start = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (200, 400, 90, 30))
+			quit = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (400, 400, 70, 30))
+			myfont=pygame.font.SysFont("Britannic Bold", 40)
+			title=myfont.render("DWABP DWABP REVOLUTION 2017", 1, (255, 0, 0))
+			quittext=myfont.render("QUIT", 1, (255, 0, 0))
+			starttext=myfont.render("START", 1, (255, 0, 0))
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				mouse_pos = pygame.mouse.get_pos() # gets mouse position
+				if start.collidepoint(mouse_pos):
+					print("here")
+					end_it = True
+				if quit.collidepoint(mouse_pos):
+					pygame.quit()
+					sys.exit()
+			DISPLAYSURF.blit(title,(200,200))
+			DISPLAYSURF.blit(starttext,(200,400))
+			DISPLAYSURF.blit(quittext, (400,400))
+			pygame.display.flip()
 
 counter  = 0
 
@@ -88,7 +89,7 @@ myfont = pygame.font.SysFont("monospace", 30)
 
 def outro():
 	end_it=False
-	BackGround = Background('Untitled2.png', [0,0])
+	BackGround = upload_image('Untitled2.png', [0,0])
 	while (end_it==False):
 		for event in pygame.event.get():
 			DISPLAYSURF.fill([255, 255, 255])
@@ -122,7 +123,8 @@ def main_game():
     #initialising surface
     DISPLAYSURF.fill(WHITE)
     #body:
-    pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,body_height))
+    doug = upload_image('doug.png', [0,0])
+    DISPLAYSURF.blit(doug.image, doug.rect)
     #head:
     pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
     #left upper arm:
@@ -147,89 +149,116 @@ def main_game():
 
     counter = 0
     direction_of_dab = "right"
-    while True:
+    doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-100])
+    while game_over == False:
         #clear screen
         DISPLAYSURF.fill(WHITE)
         counterLabel = myfont.render("SCORE: "+str(counter), 1, RED)
         DISPLAYSURF.blit(counterLabel, (5, 5))
         #redraw static images
         #body:
-        pygame.draw.rect(DISPLAYSURF, RED, (body_top_left_x,body_top_left_y,body_width,body_height))
-        #head:
-        pygame.draw.circle(DISPLAYSURF, RED, (head_x, head_y),head_rad, 0)
+        doug = upload_image('doug.png', [body_top_left_x,body_top_left_y-200])
+        DISPLAYSURF.blit(doug.image, doug.rect)
+        #head
+       	#tbc
         #left upper arm:
         pygame.draw.line(DISPLAYSURF, BLACK, (left_should_x,left_should_y),(left_elbow_x,left_elbow_y),arm_thiccness)
         #lower left arm:
         pygame.draw.line(DISPLAYSURF, BLUE, (left_elbow_x, left_elbow_y),(left_hand_x,left_hand_y),arm_thiccness)
 
-        if game_over == False:
-            left_elbow_x = arm_length*math.cos(shoulder_angle) + left_should_x
-            left_elbow_y = arm_length*math.sin(shoulder_angle) + left_should_y
-            left_hand_x = arm_length*math.cos(elbow_angle) + left_elbow_x
-            left_hand_y = arm_length*math.sin(elbow_angle) + left_elbow_y
+        left_elbow_x = arm_length*math.cos(shoulder_angle) + left_should_x
+        left_elbow_y = arm_length*math.sin(shoulder_angle) + left_should_y
+        left_hand_x = arm_length*math.cos(elbow_angle) + left_elbow_x
+        left_hand_y = arm_length*math.sin(elbow_angle) + left_elbow_y
 
-            if shoulder_angle > (math.pi*5)/2:
-                shoulder_angle = math.pi/2
+        if shoulder_angle > (math.pi*5)/2:
+            shoulder_angle = math.pi/2
 
-            if shoulder_angle < (math.pi*3)/2:
-                shoulder_angle = max(math.pi/2,shoulder_angle-0.003)
-            else:
-                shoulder_angle = shoulder_angle+0.003
-
-            if elbow_angle > (math.pi*5)/2:
-                elbow_angle = math.pi/2
-            
-            if elbow_angle < (math.pi*3)/2:
-                elbow_angle = max(math.pi/2,elbow_angle-0.003)
-            else:
-                elbow_angle +=0.003
-
-            seconds = (pygame.time.get_ticks()-start_ticks)/1000
-            if seconds>29:
-                game_over = True
-            if seconds%3==0 and seconds not in foundNumbers:
-                direction_of_dab = random_dab()
-                foundNumbers.append(seconds)
-
-            if direction_of_dab == "left":
-                dab_label = myfont.render("LEFT DAB",1, RED)
-                DISPLAYSURF.blit(dab_label, (300, 50))
-            else:
-                dab_label = myfont.render("RIGHT DAB",1, RED)
-                DISPLAYSURF.blit(dab_label, (300, 50))
-
-            timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
-            DISPLAYSURF.blit(timer_label, (screen_width-400,5))
-
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == KEYDOWN:
-                    if event.key == K_q:
-                        counter+=1
-                        #raise left elbow
-                        print "q pressed"
-                        shoulder_angle = shoulder_angle+0.3
-                    elif event.key == K_w:
-                        if shoulder_angle-0.3 < math.pi/2:
-                            shoulder_angle += 2*math.pi - 0.3
-                        else:
-                            shoulder_angle = shoulder_angle - 0.3
-                    elif event.key == K_a:
-                        elbow_angle = elbow_angle + 0.3
-                    elif event.key == K_s:
-                        if elbow_angle-0.3 < math.pi/2:
-                            elbow_angle += 2*math.pi - 0.3
-                        else:
-                            elbow_angle = elbow_angle - 0.3
-
+        if shoulder_angle < (math.pi*3)/2:
+            shoulder_angle = max(math.pi/2,shoulder_angle-0.003)
         else:
-            #display end screen
-            break
+            shoulder_angle = shoulder_angle+0.003
 
+        if elbow_angle > (math.pi*5)/2:
+            elbow_angle = math.pi/2
+        
+        if elbow_angle < (math.pi*3)/2:
+            elbow_angle = max(math.pi/2,elbow_angle-0.003)
+        else:
+            elbow_angle +=0.003
+
+        seconds = (pygame.time.get_ticks()-start_ticks)/1000
+        if seconds>29:
+            game_over = True
+        if seconds%3==0 and seconds not in foundNumbers:
+            direction_of_dab = random_dab()
+            foundNumbers.append(seconds)
+
+        if direction_of_dab == "left":
+            dab_label = myfont.render("LEFT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
+        else:
+            dab_label = myfont.render("RIGHT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
+
+        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+                    counter+=1
+                    #raise left elbow
+                    print "q pressed"
+                    shoulder_angle = shoulder_angle+0.3
+                elif event.key == K_w:
+                    if shoulder_angle-0.3 < math.pi/2:
+                        shoulder_angle += 2*math.pi - 0.3
+                    else:
+                        shoulder_angle = shoulder_angle - 0.3
+                elif event.key == K_a:
+                    elbow_angle = elbow_angle + 0.3
+                elif event.key == K_s:
+                    if elbow_angle-0.3 < math.pi/2:
+                        elbow_angle += 2*math.pi - 0.3
+                    else:
+                        elbow_angle = elbow_angle - 0.3
+
+        seconds = (pygame.time.get_ticks()-start_ticks)/1000
+        if seconds>29:
+            game_over = True
+        if seconds%3==0 and seconds not in foundNumbers:
+            direction_of_dab = random_dab()
+            foundNumbers.append(seconds)
+
+        if direction_of_dab == "left":
+            dab_label = myfont.render("LEFT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
+        else:
+            dab_label = myfont.render("RIGHT DAB",1, RED)
+            DISPLAYSURF.blit(dab_label, (300, 50))
+
+        timer_label = myfont.render("TIME REMAINING: "+str(30-seconds),1,RED)
+        DISPLAYSURF.blit(timer_label, (screen_width-400,5))
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+                    counter+=1
+                    #raise left elbow
+                    print "q pressed"
+                    angle = angle+0.3
+                    left_elbow_x = arm_length*math.cos(angle) + left_should_x
+                    left_elbow_y = arm_length*math.sin(angle) + left_should_y
 
         pygame.display.update()
+
 
 while True:
 
