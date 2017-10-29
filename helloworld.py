@@ -81,7 +81,6 @@ def intro():
 			DISPLAYSURF.blit(quittext, (400,400))
 			pygame.display.flip()
 
-
 # initialize font; must be called after 'pygame.init()' to avoid 'Font not Initialized' error
 myfont = pygame.font.SysFont("monospace", 30)
 
@@ -221,6 +220,7 @@ def main_game():
             right_elbow_angle +=0.003
 
         seconds = (pygame.time.get_ticks()-start_ticks)/1000
+
         if seconds%3==0 and seconds not in foundNumbers:
             direction_of_dab = random_dab()
             foundNumbers.append(seconds)
