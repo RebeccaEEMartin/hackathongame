@@ -18,9 +18,15 @@ left_should_x = body_top_left_x
 left_should_y = body_top_left_y
 game_over = False
 
+
 pygame.init()
 DISPLAYSURF = pygame.display.set_mode((screen_width,screen_height) ,0,24)
 pygame.display.set_caption('dwab dwab revolution 2017')
+pygame.mixer.pre_init(44100, 16, 2, 4096)
+pygame.mixer.init()
+pygame.mixer.music.load("rec_2s.mp3")
+#music = pygame.mixer.Sound('soundzz.wav')
+
 
 #setting up colours
 BLACK = (0,0,0)
@@ -85,9 +91,11 @@ myfont = pygame.font.SysFont("monospace", 30)
 
 
 def outro(num):
-	end_it=False
-	BackGround = upload_image('Untitled2.png', [0,0])
-	while (end_it==False):
+    pygame.mixer.music.load("lit.mp3")
+    pygame.mixer.music.play(0)
+    end_it=False
+    BackGround = upload_image('Untitled2.png', [0,0])
+    while (end_it==False):
 		for event in pygame.event.get():
 			DISPLAYSURF.blit(BackGround.image, BackGround.rect)
 			start = pygame.draw.rect(DISPLAYSURF, [0, 0, 0], (200, 400, 90, 30))
@@ -190,6 +198,8 @@ def main_game():
         if check_for_dabs(left_shoulder_angle,left_elbow_angle,right_shoulder_angle,right_elbow_angle) == True:
             counter+=1
             successful_dab = True
+            if not pygame.mixer.music.get_busy():
+                pygame.mixer.music.play()
         else:
             successful_dab = False
 

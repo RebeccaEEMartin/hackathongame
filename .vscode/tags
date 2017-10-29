@@ -4,27 +4,74 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-BLACK	../helloworld.py	/^BLACK = (0,0,0)$/;"	kind:variable	line:29
-DISPLAYSURF	../helloworld.py	/^DISPLAYSURF = pygame.display.set_mode((screen_width, screen_height))$/;"	kind:variable	line:25
-RED	../helloworld.py	/^RED = (255,0,0)$/;"	kind:variable	line:31
-WHITE	../helloworld.py	/^WHITE = (255,255,255)$/;"	kind:variable	line:30
-arm_length	../helloworld.py	/^arm_length = 80$/;"	kind:variable	line:14
+BLACK	../helloworld.py	/^BLACK = (0,0,0)$/;"	kind:variable	line:32
+DISPLAYSURF	../helloworld.py	/^DISPLAYSURF = pygame.display.set_mode((screen_width, screen_height))$/;"	kind:variable	line:28
+Environment	../PyParticles.py	/^class Environment:$/;"	kind:class	line:117
+Particle	../PyParticles.py	/^class Particle:$/;"	kind:class	line:48
+PyParticles	../physics.py	/^import PyParticles$/;"	kind:namespace	line:4
+PyParticles.py	../PyParticles.py	1;"	kind:file	line:1
+RED	../helloworld.py	/^RED = (255,0,0)$/;"	kind:variable	line:34
+Spring	../PyParticles.py	/^class Spring:$/;"	kind:class	line:100
+WHITE	../helloworld.py	/^WHITE = (255,255,255)$/;"	kind:variable	line:33
+__init__	../PyParticles.py	/^    def __init__(self, (width, height)):$/;"	kind:member	line:120
+__init__	../PyParticles.py	/^    def __init__(self, (x, y), size, mass=1, fixed=False):$/;"	kind:member	line:51
+__init__	../PyParticles.py	/^    def __init__(self, p1, p2, length=50, strength=0.5):$/;"	kind:member	line:101
+accelerate	../PyParticles.py	/^    def accelerate(self, vector):$/;"	kind:member	line:81
+addFunctions	../PyParticles.py	/^    def addFunctions(self, function_list):$/;"	kind:member	line:142
+addParticles	../PyParticles.py	/^    def addParticles(self, n=1, **kargs):$/;"	kind:member	line:152
+addSpring	../PyParticles.py	/^    def addSpring(self, p1, p2, length=50, strength=0.5):$/;"	kind:member	line:170
+addVectors	../PyParticles.py	/^def addVectors((angle1, length1), (angle2, length2)):$/;"	kind:function	line:3
+arm_length	../helloworld.py	/^arm_length = 80$/;"	kind:variable	line:15
 arm_thiccness	../helloworld.py	/^arm_thiccness = 30$/;"	kind:variable	line:22
-body_height	../helloworld.py	/^body_height = screen_height\/2$/;"	kind:variable	line:10
-body_top_left_x	../helloworld.py	/^body_top_left_x = screen_width\/3$/;"	kind:variable	line:7
-body_top_left_y	../helloworld.py	/^body_top_left_y = screen_height\/2$/;"	kind:variable	line:8
-body_width	../helloworld.py	/^body_width = screen_width\/3$/;"	kind:variable	line:9
-head_rad	../helloworld.py	/^head_rad = 30$/;"	kind:variable	line:11
-head_x	../helloworld.py	/^head_x = screen_width\/2$/;"	kind:variable	line:12
-head_y	../helloworld.py	/^head_y = screen_height\/2 - head_rad$/;"	kind:variable	line:13
+attract	../PyParticles.py	/^    def attract(self, other):$/;"	kind:member	line:85
+body_height	../helloworld.py	/^body_height = screen_height\/2$/;"	kind:variable	line:11
+body_top_left_x	../helloworld.py	/^body_top_left_x = screen_width\/3$/;"	kind:variable	line:8
+body_top_left_y	../helloworld.py	/^body_top_left_y = screen_height\/2$/;"	kind:variable	line:9
+body_width	../helloworld.py	/^body_width = screen_width\/3$/;"	kind:variable	line:10
+bounce	../PyParticles.py	/^    def bounce(self, particle):$/;"	kind:member	line:187
+collide	../PyParticles.py	/^def collide(p1, p2):$/;"	kind:function	line:24
+combine	../PyParticles.py	/^def combine(p1, p2):$/;"	kind:function	line:14
+counter	../helloworld.py	/^counter  = 0$/;"	kind:variable	line:47
+experienceDrag	../PyParticles.py	/^    def experienceDrag(self):$/;"	kind:member	line:70
+findParticle	../PyParticles.py	/^    def findParticle(self, (x, y)):$/;"	kind:member	line:210
+head_rad	../helloworld.py	/^head_rad = 30$/;"	kind:variable	line:12
+head_x	../helloworld.py	/^head_x = screen_width\/2$/;"	kind:variable	line:13
+head_y	../helloworld.py	/^head_y = screen_height\/2 - head_rad$/;"	kind:variable	line:14
 helloworld.py	../helloworld.py	1;"	kind:file	line:1
-left_elbow_x	../helloworld.py	/^left_elbow_x = left_should_x - 20$/;"	kind:variable	line:17
-left_elbow_y	../helloworld.py	/^left_elbow_y = left_should_y + arm_length$/;"	kind:variable	line:18
-left_hand_x	../helloworld.py	/^left_hand_x = 50$/;"	kind:variable	line:19
-left_hand_y	../helloworld.py	/^left_hand_y = 250$/;"	kind:variable	line:20
-left_should_x	../helloworld.py	/^left_should_x = body_top_left_x$/;"	kind:variable	line:15
-left_should_y	../helloworld.py	/^left_should_y = body_top_left_y$/;"	kind:variable	line:16
+label	../helloworld.py	/^                label = myfont.render(str(counter), 1, (255,0,0))$/;"	kind:variable	line:68
+label	../helloworld.py	/^label = myfont.render(str(counter), 1, RED)$/;"	kind:variable	line:53
+left_elbow_x	../helloworld.py	/^                left_elbow_x = arm_length*math.cos(math.pi\/120) + left_should_x$/;"	kind:variable	line:73
+left_elbow_x	../helloworld.py	/^left_elbow_x = left_should_x - 20$/;"	kind:variable	line:18
+left_elbow_y	../helloworld.py	/^                left_elbow_y = arm_length*math.sin(math.pi\/120) + left_should_y$/;"	kind:variable	line:74
+left_elbow_y	../helloworld.py	/^left_elbow_y = left_should_y + arm_length$/;"	kind:variable	line:19
+left_hand_x	../helloworld.py	/^left_hand_x = 50$/;"	kind:variable	line:20
+left_hand_y	../helloworld.py	/^left_hand_y = 250$/;"	kind:variable	line:21
+left_should_x	../helloworld.py	/^left_should_x = body_top_left_x$/;"	kind:variable	line:16
+left_should_y	../helloworld.py	/^left_should_y = body_top_left_y$/;"	kind:variable	line:17
+math	../PyParticles.py	/^import math, random$/;"	kind:namespace	line:1
+math	../helloworld.py	/^import math$/;"	kind:namespace	line:2
+mouseMove	../PyParticles.py	/^    def mouseMove(self, (x, y)):$/;"	kind:member	line:73
+move	../PyParticles.py	/^    def move(self):$/;"	kind:member	line:64
+myfont	../helloworld.py	/^myfont = pygame.font.SysFont("monospace", 15)$/;"	kind:variable	line:50
+paused	../physics.py	/^                paused = (True, False)[paused]$/;"	kind:variable	line:38
+paused	../physics.py	/^paused = False$/;"	kind:variable	line:29
+physics.py	../physics.py	1;"	kind:file	line:1
+pi	../physics.py	/^from math import pi$/;"	kind:namespace	line:1
 pygame	../helloworld.py	/^import pygame, sys$/;"	kind:namespace	line:1
-screen_height	../helloworld.py	/^screen_height = 300$/;"	kind:variable	line:6
-screen_width	../helloworld.py	/^screen_width = 400$/;"	kind:variable	line:5
+pygame	../physics.py	/^import pygame$/;"	kind:namespace	line:3
+random	../PyParticles.py	/^import math, random$/;"	kind:namespace	line:1
+random	../physics.py	/^import random$/;"	kind:namespace	line:2
+running	../physics.py	/^            running = False$/;"	kind:variable	line:35
+running	../physics.py	/^running = True$/;"	kind:variable	line:30
+screen	../physics.py	/^screen = pygame.display.set_mode((width, height))$/;"	kind:variable	line:7
+screen_height	../helloworld.py	/^screen_height = 300$/;"	kind:variable	line:7
+screen_width	../helloworld.py	/^screen_width = 400$/;"	kind:variable	line:6
+seconds	../helloworld.py	/^    seconds = (pygame.time.get_ticks()-start_ticks)\/1000$/;"	kind:variable	line:57
+selected_particle	../physics.py	/^            selected_particle = None$/;"	kind:variable	line:42
+selected_particle	../physics.py	/^            selected_particle = universe.findParticle(pygame.mouse.get_pos())$/;"	kind:variable	line:40
+selected_particle	../physics.py	/^selected_particle = None$/;"	kind:variable	line:28
+start_ticks	../helloworld.py	/^start_ticks = pygame.time.get_ticks()$/;"	kind:variable	line:25
 sys	../helloworld.py	/^import pygame, sys$/;"	kind:namespace	line:1
+universe	../physics.py	/^universe = PyParticles.Environment((width, height))$/;"	kind:variable	line:10
+update	../PyParticles.py	/^    def update(self):$/;"	kind:member	line:107
+update	../PyParticles.py	/^    def update(self):$/;"	kind:member	line:174
